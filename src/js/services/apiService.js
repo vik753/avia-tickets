@@ -13,7 +13,7 @@ class Api {
   async countries() {
     try {
       const response = await axios.get(`${this.url}/countries`);
-			return response.data;
+      return response.data;
     } catch (error) {
       console.log(error);
       return Promise.reject(error);
