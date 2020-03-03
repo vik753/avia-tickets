@@ -1,7 +1,7 @@
 import "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 
-// Init select
+// Init selects
 const select = document.querySelectorAll("select");
 M.FormSelect.init(select);
 
@@ -27,10 +27,10 @@ export function getAutocompleteInstance(elem) {
 const datepicker = document.querySelectorAll(".datepicker");
 M.Datepicker.init(datepicker, {
   showClearBtn: true,
-  format: "dd, mmmm, yyyy",
+  format: "yyyy-mm",
   autoClose: true,
 });
 
 export function getDatePickerInstance(elem) {
-  return M.FormSelect.getInstance(elem);
+  return M.Datepicker.getInstance(elem);
 }
