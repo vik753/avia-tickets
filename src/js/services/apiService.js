@@ -28,8 +28,17 @@ class Api {
       return Promise.reject(error);
     }
   }
+  async airlines() {
+    try {
+      const response = await axios.get(`${this.url}/airlines`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return Promise.reject(error);
+    }
+  }
   async prices(params) {
-    console.log('Params: ', params);
+    // console.log("Params: ", params);
     try {
       const response = await axios.get(`${this.url}/prices/cheap`, {
         params,
