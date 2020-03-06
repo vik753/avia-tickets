@@ -4,6 +4,7 @@ import locations from "./store/location";
 import formUI from "./views/form";
 import ticketsUI from "./views/tickets";
 import currencyUI from "./views/currency";
+import favorites from "./views/favorites";
 
 document.addEventListener("DOMContentLoaded", () => {
   initApp();
@@ -40,5 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // console.log(locations.lastSearch);
     ticketsUI.renderTickets(locations.lastSearch);
+
+    // get Add to favorite button
+    
   }
 });

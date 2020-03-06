@@ -22,6 +22,10 @@
   justify-content: space-between;
 }
 
+.justify-items-right {
+  justify-content: flex-end;
+}
+
 .ml-auto {
   margin-left: auto;
 }
@@ -166,4 +170,18 @@
   background: whitesmoke;
   font-weight: bold;
   font-size: 18px;
+}
+
+.add-favorite {
+  min-width: 135px;
+  color: #fff;
+  padding: 5px 5px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 0;
+  cursor: pointer;
+}
+
+.red.accent-2.add-favorite:hover {
+  background-color: #da5700 !important;
 }
