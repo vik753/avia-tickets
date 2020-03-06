@@ -36,7 +36,7 @@ export function getDatePickerInstance(elem) {
 }
 
 // Init dropdown
-const dropdown = document.querySelectorAll(".dropdown-trigger");
+const dropdown = document.querySelector(".dropdown-trigger-fav");
 M.Dropdown.init(dropdown, {
   closeOnClick: false,
 });
