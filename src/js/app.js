@@ -42,7 +42,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log(locations.lastSearch);
     ticketsUI.renderTickets(locations.lastSearch);
 
-    // get Add to favorite button
-    
   }
 });

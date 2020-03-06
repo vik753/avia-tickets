@@ -97,6 +97,10 @@
   margin-bottom: 5px;
 }
 
+.favorites .favorite-item-empty {
+  padding: 0 1rem;
+}
+
 .favorites .ticket-price {
   font-size: 18px;
   font-weight: bold;
