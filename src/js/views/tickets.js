@@ -43,13 +43,14 @@ class TicketsUI {
 
   static addTicketToFavStore(e) {
     e.preventDefault();
-    const parentTicketCard = e.target.parentElement.parentElement;
+    const btn = e.target;
+    const parentTicketCard = btn.parentElement.parentElement;
     const ticket = TicketsUI.getTicketData(parentTicketCard);
     favorites.ticketToStore = ticket;
-    e.target.classList.remove("red", "accent-2");
-    e.target.classList.add("green", "accent-4");
-    e.target.textContent = `In favorites`;
-    e.target.insertAdjacentHTML(
+    btn.classList.remove("red", "accent-2");
+    btn.classList.add("green", "accent-4");
+    btn.textContent = `In favorites`;
+    btn.insertAdjacentHTML(
       "afterbegin",
       ` <i class="material-icons">star_border</i>`
     );

@@ -75,6 +75,10 @@
   color: #000;
 }
 
+.favorites .favorite-logo-container {
+  max-width: 100px;
+}
+
 .favorites .favorite-item-airline-img {
   max-width: 100px;
   margin-right: 10px;
@@ -99,6 +103,10 @@
 
 .favorites .favorite-item-empty {
   padding: 0 1rem;
+}
+
+.favorites .favorite-item {
+  border-bottom: 1px solid #dbdbdb;
 }
 
 .favorites .ticket-price {
