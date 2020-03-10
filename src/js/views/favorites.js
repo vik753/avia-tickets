@@ -1,6 +1,5 @@
 class FavoritesUI {
   constructor() {
-    this.count = 0;
     this.store = {};
     this.container = document.querySelector("#dropdown1");
   }
@@ -12,9 +11,9 @@ class FavoritesUI {
 
     this.store = {
       ...this.store,
-      [this.count++]: ticket,
+      [ticket.id]: ticket,
     };
-
+    // console.log(this.store)
     this.renderUI();
   }
 
@@ -35,17 +34,64 @@ class FavoritesUI {
       fragment += FavoritesUI.favoritesTemplate(ticket);
     });
     this.container.insertAdjacentHTML("afterbegin", fragment);
+    this.setDeleteEventListener();
   }
 
-  removeFavorites() {
-    this.store = {};
-    this.container.innerHTML = "";
-    return true;
+  removeFavoriteFromStore(id) {
+    // console.log(this.store);
+    delete this.store[id];
+    return Object.keys(this.store).length;
   }
 
   clearUI() {
     this.container.innerHTML = "";
     return true;
+  }
+
+  deleteFavItem(e) {
+    const favoritItem = e.target.parentNode.parentNode;
+    const id = favoritItem.dataset.id;
+
+    if (e.target.classList.contains("delete-favorite")) {
+      const storLength = this.removeFavoriteFromStore(id);
+      favoritItem.parentNode.removeChild(favoritItem);
+
+      if (storLength === 0) {
+        this.setEmptyUITemplate();
+      }
+
+      // restore add-favorite-button
+      const favBtn = document.querySelector(
+        `[data-ticketid="${id}"] button.add-favorite`
+      );
+      if (!favBtn) return true;
+
+      favBtn.classList.remove("green", "accent-4");
+      favBtn.classList.add("red", "accent-2");
+      favBtn.textContent = `Add to favorite`;
+      favBtn.insertAdjacentHTML(
+        "afterbegin",
+        ` <i class="material-icons">star_border</i>`
+      );
+      favBtn.removeAttribute("disabled");
+      return true;
+    }
+  }
+
+  setDeleteEventListener() {
+    const favoritesElements = document.querySelectorAll(".favorite-item");
+    favoritesElements.forEach(el => {
+      el.addEventListener("click", e => {
+        this.deleteFavItem(e);
+      });
+    });
+  }
+
+  setEmptyUITemplate() {
+    this.container.insertAdjacentHTML(
+      "afterbegin",
+      FavoritesUI.emptyFavoritesTemplate()
+    );
   }
 
   static emptyFavoritesTemplate() {
@@ -59,13 +105,7 @@ class FavoritesUI {
   static isUniqueTicket(ticket, store) {
     let isUnique = true;
     Object.values(store).forEach(val => {
-      if (
-        val.airline_name === ticket.airline_name &&
-        val.origin_name === ticket.origin_name &&
-        val.destination_name === ticket.destination_name &&
-        val.departure_at === ticket.departure_at &&
-        val.flight_number === ticket.flight_number
-      ) {
+      if (val.id === ticket.id) {
         isUnique = false;
         return;
       }
@@ -74,7 +114,7 @@ class FavoritesUI {
   }
 
   static favoritesTemplate(ticket) {
-    /*
+    /* ticket
      * airline_logo: "http://pics.avs.io/200/200/7W.png"
      * airline_name: "Windrose Airlines"
      * origin_name: "Одесса"
@@ -85,7 +125,10 @@ class FavoritesUI {
      * flight_number: "Номер рейса: 9024"
      */
     return `
-      <div class="favorite-item  d-flex align-items-start">
+      <div
+      class="favorite-item  d-flex align-items-start"
+      data-id="${ticket.airline_name}-${ticket.origin_name}-${ticket.destination_name}-${ticket.departure_at}-${ticket.flight_number}"
+      >
         <img
           src="${ticket.airline_logo}"
           class="favorite-item-airline-img"

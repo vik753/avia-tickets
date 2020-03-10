@@ -73,6 +73,7 @@
 .favorites .dropdown-content {
   width: 400px !important;
   color: #000;
+  height: auto !important;
 }
 
 .favorites .favorite-logo-container {

@@ -43,7 +43,11 @@ class TicketsUI {
 
   static addTicketToFavStore(e) {
     e.preventDefault();
-    const btn = e.target;
+    let btn = e.target;
+    if (e.target.tagName !== 'BUTTON') {
+      btn = e.target.parentNode;
+    }
+    // console.log(btn);
     const parentTicketCard = btn.parentElement.parentElement;
     const ticket = TicketsUI.getTicketData(parentTicketCard);
     favorites.ticketToStore = ticket;
@@ -54,6 +58,7 @@ class TicketsUI {
       "afterbegin",
       ` <i class="material-icons">star_border</i>`
     );
+    btn.setAttribute('disabled', 'true');
   }
 
   static getTicketData(parentNode) {
@@ -77,6 +82,7 @@ class TicketsUI {
       const flight_number = flight_numberEl.textContent.trim();
 
       return {
+        id: `${airline_name}-${origin_name}-${destination_name}-${departure_at}-${flight_number}`,
         airline_logo,
         airline_name,
         origin_name,
@@ -103,7 +109,7 @@ class TicketsUI {
   static ticketTemplate(ticket, currencySymbol) {
     // console.log(currencySymbol);
     return `
-      <div class="col s12 m6">
+      <div class="col s12 m6" data-ticketid="${ticket.airline_name}-${ticket.origin_name}-${ticket.destination_name}-${ticket.departure_at}-Номер рейса: ${ticket.flight_number}">
         <div class="card ticket-card">
           <div class="d-flex align-items-center justify-items-right">
             <button class="d-flex align-items-center red accent-2 add-favorite">
